@@ -276,7 +276,8 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 760px) {
   .topnav__inner { padding: 24px 24px 0; }
-  .topnav__name { font-size: 14px; }
+  /* keep the name visible above the open menu overlay, aligned with the ✕ */
+  .topnav__name { font-size: 14px; position: relative; z-index: 30; }
 
   /* collapse links into a hamburger + full-screen slide-in menu */
   .topnav__toggle {

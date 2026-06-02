@@ -2,12 +2,17 @@
    Mysa Case Study — main.js
    1. IntersectionObserver scroll reveals (fade up)
    2. Count-up for the 99% stat when it enters view
+   3. Mobile hamburger nav
    ============================================================ */
 
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 0. Always reload from the top ---------- */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
 
   /* ---------- 1. Scroll reveals ----------
      Apply a subtle fade-up to each section's direct children, with a
@@ -89,9 +94,36 @@
     counters.forEach(function (c) { obs.observe(c); });
   }
 
+  /* ---------- 3. Mobile hamburger nav ---------- */
+  function initNav() {
+    var nav = document.querySelector(".topnav");
+    var toggle = document.querySelector(".topnav__toggle");
+    if (!nav || !toggle) return;
+
+    toggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("topnav--open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    // close the menu after a link is tapped or on tap outside
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest(".topnav__links a")) {
+        nav.classList.remove("topnav--open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!nav.contains(e.target)) {
+        nav.classList.remove("topnav--open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
   function init() {
     initReveals();
     initCounters();
+    initNav();
   }
 
   if (document.readyState === "loading") {

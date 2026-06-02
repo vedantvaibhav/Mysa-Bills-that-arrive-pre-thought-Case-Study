@@ -100,23 +100,19 @@
     var toggle = document.querySelector(".topnav__toggle");
     if (!nav || !toggle) return;
 
-    toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("topnav--open");
+    function setOpen(open) {
+      nav.classList.toggle("topnav--open", open);
+      document.body.classList.toggle("nav-locked", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(!nav.classList.contains("topnav--open"));
     });
 
-    // close the menu after a link is tapped or on tap outside
+    // close the menu after a link is tapped
     nav.addEventListener("click", function (e) {
-      if (e.target.closest(".topnav__links a")) {
-        nav.classList.remove("topnav--open");
-        toggle.setAttribute("aria-expanded", "false");
-      }
-    });
-    document.addEventListener("click", function (e) {
-      if (!nav.contains(e.target)) {
-        nav.classList.remove("topnav--open");
-        toggle.setAttribute("aria-expanded", "false");
-      }
+      if (e.target.closest(".topnav__links a")) setOpen(false);
     });
   }
 

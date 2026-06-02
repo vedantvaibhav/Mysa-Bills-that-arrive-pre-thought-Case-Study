@@ -22,6 +22,7 @@
   --maxw: 1512px;
   --pad: clamp(24px, 5vw, 80px);
   --copy-w: 1200px;
+  --page-gap: 120px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -74,6 +75,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: -0.1px;
   color: #000;
 }
+.topnav__toggle { display: none; }
 
 .page {
   max-width: var(--maxw);
@@ -81,7 +83,7 @@ img { max-width: 100%; display: block; }
   padding: 56px var(--pad) 80px;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: var(--page-gap);
 }
 
 /* ---------- Section ---------- */
@@ -91,6 +93,8 @@ img { max-width: 100%; display: block; }
   flex-direction: column;
   gap: 48px;
 }
+/* pull a section closer to the image above it (page gap → 48px) */
+.sec--tight { margin-top: calc(48px - var(--page-gap)); }
 /* headline sits 32px above its following block (48px gap − 16px) */
 .sec > .headline { margin-bottom: -16px; }
 
@@ -149,7 +153,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: -0.1px;
   color: var(--ink-faint);
 }
-.shot__caption .spark { color: var(--ink-faint); margin-right: 8px; }
+.shot__caption .spark { color: var(--ink-faint); margin-right: 4px; }
 
 /* tighten the caption→image gap for the hero (first) image only */
 .sec:first-of-type .shot__caption { margin-bottom: 12px; }
@@ -253,8 +257,8 @@ img { max-width: 100%; display: block; }
 
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  transform: translateY(36px) scale(0.985);
+  transition: opacity 1.3s var(--ease), transform 1.3s var(--ease);
   will-change: opacity, transform;
 }
 .reveal.is-visible { opacity: 1; transform: none; }
@@ -267,14 +271,63 @@ img { max-width: 100%; display: block; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1024px) {
-  .page { gap: 96px; }
+  .page { --page-gap: 96px; }
 }
 
 @media (max-width: 760px) {
   .topnav__inner { padding: 24px 24px 0; }
-  .topnav__links { gap: 18px; }
-  .topnav__links a, .topnav__name { font-size: 14px; }
-  .page { padding: 40px 24px 56px; gap: 72px; }
+  /* keep the name visible above the open menu overlay, aligned with the ✕ */
+  .topnav__name { font-size: 14px; position: relative; z-index: 30; }
+
+  /* collapse links into a hamburger + full-screen slide-in menu */
+  .topnav__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 4px;
+    margin: -10px -4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 30;
+  }
+  .topnav__bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 1px;
+    background: #000;
+    transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .topnav--open .topnav__bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .topnav--open .topnav__bar:nth-child(2) { opacity: 0; }
+  .topnav--open .topnav__bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .topnav__links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 96px 24px 24px;
+    background: var(--bg);
+    z-index: 20;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.4s var(--ease), visibility 0s linear 0.4s;
+  }
+  .topnav--open .topnav__links {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.4s var(--ease);
+  }
+  .topnav__links a { font-size: 28px; font-weight: 500; color: #000; padding: 8px 0; }
+  body.nav-locked { overflow: hidden; }
+
+  .page { padding: 40px 24px 56px; --page-gap: 72px; }
   .sec { gap: 36px; }
   .sec > .headline { margin-bottom: -8px; }
   .headline { font-size: 32px; line-height: 42px; letter-spacing: -0.4px; }
@@ -284,6 +337,8 @@ img { max-width: 100%; display: block; }
   .copy > .lead + p { margin-top: 12px; }
   .copy p br { display: none; }
   .shot__caption { font-size: 15px; }
+  .shot__caption .spark { display: none; }
+  .sec.trust { display: none; }
   .testimonials { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; }
   .testimonial blockquote { font-size: 19px; line-height: 28px; }
 }

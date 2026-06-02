@@ -2,12 +2,17 @@
    Mysa Case Study — main.js
    1. IntersectionObserver scroll reveals (fade up)
    2. Count-up for the 99% stat when it enters view
+   3. Mobile hamburger nav
    ============================================================ */
 
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 0. Always reload from the top ---------- */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
 
   /* ---------- 1. Scroll reveals ----------
      Apply a subtle fade-up to each section's direct children, with a
@@ -21,8 +26,8 @@
     sections.forEach(function (sec) {
       Array.prototype.forEach.call(sec.children, function (child, i) {
         child.classList.add("reveal");
-        // small, capped stagger for elements that enter together
-        child.style.transitionDelay = Math.min(i, 3) * 0.07 + "s";
+        // capped stagger for elements that enter together
+        child.style.transitionDelay = Math.min(i, 3) * 0.12 + "s";
         items.push(child);
       });
     });
@@ -32,14 +37,14 @@
       return;
     }
 
-    // Reveal an element once its top edge scrolls into the lower ~92% of
+    // Reveal an element once its top edge scrolls into the lower ~88% of
     // the viewport. Runs on load (above-the-fold reveals immediately) and
     // on scroll. No IntersectionObserver dependency — reliable everywhere.
     function check() {
       var vh = window.innerHeight || document.documentElement.clientHeight;
       for (var j = items.length - 1; j >= 0; j--) {
         var r = items[j].getBoundingClientRect();
-        if (r.top < vh * 0.92) {
+        if (r.top < vh * 0.88) {
           items[j].classList.add("is-visible");
           items.splice(j, 1);
         }
@@ -89,9 +94,32 @@
     counters.forEach(function (c) { obs.observe(c); });
   }
 
+  /* ---------- 3. Mobile hamburger nav ---------- */
+  function initNav() {
+    var nav = document.querySelector(".topnav");
+    var toggle = document.querySelector(".topnav__toggle");
+    if (!nav || !toggle) return;
+
+    function setOpen(open) {
+      nav.classList.toggle("topnav--open", open);
+      document.body.classList.toggle("nav-locked", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(!nav.classList.contains("topnav--open"));
+    });
+
+    // close the menu after a link is tapped
+    nav.addEventListener("click", function (e) {
+      if (e.target.closest(".topnav__links a")) setOpen(false);
+    });
+  }
+
   function init() {
     initReveals();
     initCounters();
+    initNav();
   }
 
   if (document.readyState === "loading") {

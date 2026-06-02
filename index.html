@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysa &ndash; Bills that arrive pre-thought.</title>
+  <meta name="description" content="A case study on accounts payable: how we replaced character recognition with comprehension, and let the accountant stop filling and start deciding." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topnav">
+    <div class="topnav__inner">
+      <span class="topnav__name">Vedant Vaibhav</span>
+      <nav class="topnav__links">
+        <a href="https://www.vedantvaibhav.com/" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://github.com/vedantvaibhav" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/vedantvaibhav/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="assets/Resume/Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- 1 ┄┄ Hero -->
+    <section class="sec">
+      <h1 class="headline">Bills that arrive <span class="hl hl--blue">pre-thought.</span></h1>
+      <div class="copy">
+        <p>Finance teams spent nearly <strong>9 minutes processing every bill.</strong> Not because the work was complex.<br>The system simply kept asking people to verify things it already knew.</p>
+        <p>Match the vendor. Confirm GST and TDS. Check whether an advance had already been paid. Verify line items.<br>Flag recurring expenses. Most of these answers already existed somewhere in the system. <strong>Yet every bill started from scratch.</strong></p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> The Accounting review screen where every bill is reviewed before payment goes out.</figcaption>
+        <div class="image-slot" data-label="1.png">
+          <img src="assets/Pictures/1.png" alt="The accounting review screen" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 2 ┄┄ Trust strip -->
+    <section class="sec trust">
+      <p class="trust__label">Trusted by teams at</p>
+      <img class="trust__strip" src="assets/logos/1.png" alt="Trusted by teams at Acceldata, Dhan, Wint, Swish, HackerEarth, Plan B, Atomicwork, Ambak, and DPDzero" />
+    </section>
+
+    <!-- 3 ┄┄ The Setup -->
+    <section class="sec">
+      <h2 class="headline">
+        <span class="line">Swish runs 48 kitchens across 32 locations.</span>
+        <span class="line"><span class="hl hl--gold hl--start">Every one of them generates bills.</span></span>
+      </h2>
+      <div class="copy">
+        <p>Swish is a fast-moving food tech company. The kind that prides itself on delivering in 10 minutes.</p>
+        <p>Behind that speed, <strong>over 100 vendor bills land every month</strong> from suppliers, service providers, and delivery partners, across formats, channels, and locations. All of it needs to be validated, approved, and paid on time.</p>
+        <p>Before Mysa, the entire process was manual. Every vendor looked up by hand. Every GST code cross-checked individually. Every bill treated like the first one.</p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> The full accounts payable journey at Swish. Every bill passes through these steps but Finance Review is where the clock stopped.</figcaption>
+        <div class="image-slot" data-label="2.png">
+          <img src="assets/Pictures/2.png" alt="The full accounts payable journey at Swish" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+      <div class="copy">
+        <p>After approvals, every bill reaches the accountant for finance review. <strong>Nothing moves until this step is done.</strong> No payment goes out. No books close. And at Swish's scale, with 48 kitchens running simultaneously, the queue never empties.</p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> The review screen before AI. Three things the accountant had to resolve manually on every single bill.</figcaption>
+        <div class="image-slot" data-label="3.png">
+          <img src="assets/Pictures/3.png" alt="The review screen before AI" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 4 ┄┄ Reframe -->
+    <section class="sec">
+      <div class="copy">
+        <p class="lead">We didn't need to change the form. We needed to change what arrived in it.</p>
+        <p>The review screen wasn't the problem. It was doing exactly what it was designed to do &ndash; present a bill for review.</p>
+        <p>The problem was what it was presenting: raw, unverified, unmatched data that put all the decision-making on the accountant. The fix wasn't a better layout or a smarter field arrangement. It was upstream. Every bill passes through an OCR layer before it ever reaches the review screen. That was where the work needed to happen.</p>
+        <p>Before the accountant even opened the bill. If we could make that layer smarter, the accountant wouldn't be filling a form. They'd be confirming one.</p>
+      </div>
+    </section>
+
+    <!-- 5 ┄┄ Pipeline / Adding context layer -->
+    <section class="sec">
+      <h2 class="headline">Adding context layer <span class="hl hl--green">Where bills get understood</span></h2>
+      <div class="copy">
+        <p>Every bill goes through OCR (optical character recognition) before it reaches the accountant.</p>
+        <p>This is the step that converts a bill image into readable data. It scans the document, extracts what it can read, and passes it forward. Vendor name, invoice number, amount, GST, line items. All of it gets lifted off the page and dropped into the review screen.</p>
+        <p>The problem with traditional OCR is that it reads without understanding. It sees &ldquo;28%&rdquo; and picks it &ndash; not because 28% is correct, but because that's the number it found. It sees a string of digits near the bottom of the page and calls it the bank account even if it's the IFSC code. It has no awareness of vendor history, no memory of past corrections, no sense of what a recurring bill from the same supplier should look like. <strong>It was doing its job. It just wasn't doing enough of it.</strong></p>
+        <p>The opportunity was clear: if we could replace character recognition with actual comprehension &ndash; a layer that understood the bill, not just read it.</p>
+        <p class="lead">We replaced character recognition with comprehension.</p>
+        <p>The new pipeline runs in two stages simultaneously. The moment a bill is uploaded, Textract (OCR) extracts the raw data and passes it to the review screen instantly, the accountant doesn't wait. <strong>In parallel, LLM picks up the same document, runs it through a set of trained prompts and validation rules, and produces a smarter version.</strong></p>
+        <p>Not smarter because it reads better. Smarter because it understands what it's reading.</p>
+        <p>It knows that &ldquo;IceMach Services&rdquo; on the invoice is &ldquo;IceMach Pvt. Ltd.&rdquo; in the ERP. It knows that this vendor type attracts 18% GST, not 28%. It knows this bill came in last month too, with a slightly different amount. It knows there's an advance sitting against this vendor that hasn't been adjusted yet. <strong>It surfaces all of that before the accountant opens the screen.</strong></p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> Claude processes in the background. When it's ready, the accountant gets a choice not an override.</figcaption>
+        <div class="image-slot" data-label="4.mp4">
+          <video src="assets/Video/4.mp4" autoplay muted loop playsinline preload="metadata"
+                 onerror="this.closest('.image-slot').classList.add('img-placeholder')"></video>
+        </div>
+      </figure>
+    </section>
+
+    <!-- 6 ┄┄ Intelligence: Vendor Match -->
+    <section class="sec">
+      <div class="copy">
+        <p class="lead">Vendor Match: The AI doesn't guess. It confirms.</p>
+        <p>Vendor names on bills rarely match the ERP exactly &ndash; abbreviations, informal names, regional spellings. The AI scans for variations, cross-references against the GSTIN and PAN on the bill, and validates the match against your ERP before pre-filling anything. If it's not 100% certain, it doesn't fill. <strong>In finance, a wrong vendor on a payment isn't a UX issue &ndash; it's a credibility mistake.</strong></p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> The AI cross-references name variations, GSTIN and PAN against the ERP. It only pre-fills when it's certain.</figcaption>
+        <div class="image-slot" data-label="5.png">
+          <img src="assets/Pictures/5.png" alt="Vendor match" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 7 ┄┄ Intelligence: GST Suggestion -->
+    <section class="sec">
+      <div class="copy">
+        <p class="lead">GST Suggestion: The right rate, not just a rate.</p>
+        <p>GST applicability isn't a single lookup &ndash; it depends on two things: the date of supply and the source of supply. Get either wrong and the filing is incorrect. The AI evaluates both against the matched vendor and surfaces the applicable options, ranked by what's historically selected for that vendor. The accountant sees a recommendation, not a blank field with 40 choices.</p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> GST applicability depends on date of supply and source of supply. The AI evaluates both and surfaces the right option.</figcaption>
+        <div class="image-slot" data-label="6.png">
+          <img src="assets/Pictures/6.png" alt="GST suggestion" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 8 ┄┄ Intelligence: Bill Insights -->
+    <section class="sec">
+      <div class="copy">
+        <p class="lead">Bill Insights: What the accountant would have had to remember.</p>
+        <p>After processing, the AI surfaces up to three observations in plain language. An unadjusted advance sitting against the vendor. An amount that's 12% higher than last month. A recurring bill pattern worth putting on a schedule. The things that would otherwise require a second tab, a memory, or a conversation with someone else in the team.</p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> Bill insights panel surfacing observations per bill.</figcaption>
+        <div class="image-slot" data-label="7.png">
+          <img src="assets/Pictures/7.png" alt="Bill insights" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 9 ┄┄ Intelligence: Feedback Loop -->
+    <section class="sec">
+      <div class="copy">
+        <p class="lead">Feedback Loop: The model learns your business.</p>
+        <p>Every AI output carries a quiet question: was this right? Thumbs up or down. When the accountant engages, the model learns their vendor patterns, their preferred GST selections, their bill formats &ndash; and gets sharper over time for that specific company.</p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> Feedback UI. The model learns your vendor patterns over time.</figcaption>
+        <div class="image-slot" data-label="8.png">
+          <img src="assets/Pictures/8.png" alt="Feedback loop" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 10 ┄┄ Beta -->
+    <section class="sec">
+      <h2 class="headline">Three Weeks <span class="hl hl--orange">Thirty accountants</span></h2>
+      <div class="copy">
+        <p>Before full rollout, we ran a closed beta across six finance teams &ndash; Swish, Kouzina, Pizza Bakery, DPDZero, Atomic Works, and a few others. Roughly 30 accountants, three weeks, real bills processed in production.</p>
+        <p>Guru and Jana, our accounting partners, were central to this. The two things we were watching closely: whether the AI checks were accurate &ndash; validating the ground truth rules we'd trained the system on and whether time per bill was actually dropping.</p>
+        <p>Both moved in the right direction. The ground truth validations caught edge cases we hadn't accounted for, we fixed them, tightened the prompts, and reran. The time metric improved week on week. But the thing that stood out had nothing to do with accuracy.</p>
+        <p>Accountants were flying through bills &ndash; faster than we expected. Too fast. GST not applied. An advance sitting unaccounted. TDS missed. The AI had surfaced all of it. The flags were right there. But habit had taken over reviewing had turned into clicking.</p>
+        <p>Classic monkey clicking behaviour.</p>
+      </div>
+      <div class="copy">
+        <p class="lead">We replaced character recognition with comprehension.</p>
+        <p>The new pipeline runs in two stages simultaneously. The moment a bill is uploaded, Textract (OCR) extracts the raw data and passes it to the review screen instantly, the accountant doesn't wait. <strong>In parallel, LLM picks up the same document, runs it through a set of trained prompts and validation rules, and produces a smarter version.</strong></p>
+        <p>Not smarter because it reads better. Smarter because it understands what it's reading.</p>
+        <p>It knows that &ldquo;IceMach Services&rdquo; on the invoice is &ldquo;IceMach Pvt. Ltd.&rdquo; in the ERP. It knows that this vendor type attracts 18% GST, not 28%. It knows this bill came in last month too, with a slightly different amount. It knows there's an advance sitting against this vendor that hasn't been adjusted yet. <strong>It surfaces all of that before the accountant opens the screen.</strong></p>
+      </div>
+      <figure class="shot">
+        <figcaption class="shot__caption"><span class="spark">&#10022;</span> Triggered only when something looks off. A scannable list of what needs acknowledgment before the bill goes through.</figcaption>
+        <div class="image-slot" data-label="9.png">
+          <img src="assets/Pictures/9.png" alt="Submission confirmation" onerror="this.parentElement.classList.add('img-placeholder')" />
+        </div>
+      </figure>
+    </section>
+
+    <!-- 11 ┄┄ Outcome -->
+    <section class="sec">
+      <h2 class="headline">The accountant stopped filling. <span class="hl hl--purple">They started deciding.</span></h2>
+      <div class="copy">
+        <p>Time per bill dropped from around 9 minutes to under 2. Vendor mismatches fell sharply in the first month. The submission confirmation caught issues that would have otherwise gone through unnoticed. And across the cohort &ndash; 60 finance team members, six clients, three weeks &ndash; the feedback was consistent: the work felt lighter, not because there was less of it, but because the system had stopped asking people to do things it could do itself.</p>
+        <p class="stat"><span class="counter" data-target="99">0</span>% of Swish's payments now run through Mysa.</p>
+      </div>
+
+      <div class="testimonials">
+        <figure class="testimonial">
+          <div class="testimonial__stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>&ldquo;I had a lot of manual entries. But in Mysa, it's mostly automated. I don't have to enter anything.&rdquo;</blockquote>
+          <figcaption><span class="testimonial__name">Pratika</span> <span class="testimonial__dot">&bull;</span> <span class="testimonial__role">Finance Team Member, Swish</span></figcaption>
+        </figure>
+        <figure class="testimonial">
+          <div class="testimonial__stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>&ldquo;The difference was immediate. Bills that used to take the whole morning were done before the first chai break.&rdquo;</blockquote>
+          <figcaption><span class="testimonial__name">Karan</span> <span class="testimonial__dot">&bull;</span> <span class="testimonial__role">Guru &amp; Jana, Accounting Partners</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

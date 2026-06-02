@@ -1,0 +1,289 @@
+/* ============================================================
+   Mysa Case Study — style.css
+   Matched to the Figma / PDF: 1512px frame · 80px padding ·
+   120px section gap · Inter · white · per-section accent chips.
+   ============================================================ */
+
+:root {
+  --bg: #ffffff;
+  --ink: #000000;
+  --ink-soft: #5C5C5C;
+  --ink-faint: #8c8c8c;
+  --line: #e9e9ec;
+
+  /* per-section highlight pairs (text / chip) */
+  --blue: #2C76A0;   --blue-bg: #CFEEFF;
+  --gold: #D48F00;   --gold-bg: #F9EDC5;
+  --green: #00CE25;  --green-bg: #C7F8D0;
+  --orange: #FF5800; --orange-bg: #FFE0D1;
+  --purple: #AC4AFF; --purple-bg: #ECD5FF;
+  --star: #FF9D00;
+
+  --maxw: 1512px;
+  --pad: clamp(24px, 5vw, 80px);
+  --copy-w: 1200px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+::selection { background: var(--blue); color: #fff; }
+
+/* ---------- Page container (Figma "Case Study" frame) ---------- */
+
+/* ---------- Top nav (scrolls with page, not fixed) ---------- */
+
+.topnav__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 40px var(--pad) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.5vw, 36px);
+}
+.topnav__links a {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.topnav__links a:hover { color: #000; }
+.topnav__name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  color: #000;
+}
+
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px var(--pad) 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+/* ---------- Section ---------- */
+
+.sec {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+/* headline sits 32px above its following block (48px gap − 16px) */
+.sec > .headline { margin-bottom: -16px; }
+
+/* ---------- Headlines ---------- */
+
+.headline {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 64px;
+  letter-spacing: -0.7px;
+  color: #000;
+}
+.headline .line { display: block; }
+
+/* ---------- Highlight chips ---------- */
+
+.hl {
+  padding: 0 8px;
+  border-radius: 6px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hl--start { margin-left: -8px; }          /* aligns a line-start chip to text */
+.hl--blue   { color: var(--blue);   background: var(--blue-bg); }
+.hl--gold   { color: var(--gold);   background: var(--gold-bg); }
+.hl--green  { color: var(--green);  background: var(--green-bg); }
+.hl--orange { color: var(--orange); background: var(--orange-bg); }
+.hl--purple { color: var(--purple); background: var(--purple-bg); }
+
+/* ---------- Body copy (20/28, 1200px) ---------- */
+
+.copy { max-width: var(--copy-w); }
+.copy > p,
+.copy > .lead {
+  margin: 0;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+}
+.copy > p { color: var(--ink-soft); font-weight: 400; }
+.copy > .lead { color: #000; font-weight: 700; }
+.copy > p + p,
+.copy > .lead + p { margin-top: 16px; }
+.copy > p + .lead { margin-top: 48px; }
+.copy strong { color: #000; font-weight: 500; }
+.copy > .stat { color: #000; }
+
+/* ---------- Captioned image ---------- */
+
+.shot { margin: 0; }
+.shot__caption {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.1px;
+  color: var(--ink-faint);
+}
+.shot__caption .spark { color: var(--ink-faint); margin-right: 8px; }
+
+/* tighten the caption→image gap for the hero (first) image only */
+.sec:first-of-type .shot__caption { margin-bottom: 12px; }
+
+.image-slot {
+  margin: 0;
+}
+.image-slot:has(video) {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.image-slot img,
+.image-slot video { width: 100%; height: auto; display: block; }
+.image-slot.img-placeholder {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #f6f6f8;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.image-slot.img-placeholder img,
+.image-slot.img-placeholder video { display: none; }
+.image-slot.img-placeholder::before {
+  content: attr(data-label);
+  color: var(--ink-faint);
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  z-index: 1;
+}
+.image-slot.img-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, rgba(0,0,0,0.015) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.015) 75%),
+    linear-gradient(45deg, rgba(0,0,0,0.015) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.015) 75%);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* ---------- Trust strip ---------- */
+
+.sec.trust { gap: 16px; }
+.trust__label {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.1px;
+  color: var(--ink-faint);
+}
+.trust__strip {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Outcome: counter + testimonials ---------- */
+
+.testimonials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px clamp(40px, 6vw, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: 48px;
+}
+.testimonial { margin: 0; max-width: 620px; }
+.testimonial__stars {
+  color: var(--star);
+  font-size: 20px;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+.testimonial blockquote {
+  margin: 0 0 20px;
+  font-size: 22px;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+  color: #1a1a1a;
+}
+.testimonial figcaption {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.003em;
+  color: #5C5C5C;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.testimonial__name { font-weight: 500; color: #5C5C5C; }
+.testimonial__dot { color: var(--ink-faint); }
+.testimonial__role { color: #5C5C5C; }
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .page { gap: 96px; }
+}
+
+@media (max-width: 760px) {
+  .topnav__inner { padding: 24px 24px 0; }
+  .topnav__links { gap: 18px; }
+  .topnav__links a, .topnav__name { font-size: 14px; }
+  .page { padding: 40px 24px 56px; gap: 72px; }
+  .sec { gap: 36px; }
+  .sec > .headline { margin-bottom: -8px; }
+  .headline { font-size: 32px; line-height: 42px; letter-spacing: -0.4px; }
+  .copy > p, .copy > .lead { font-size: 17px; line-height: 26px; }
+  .copy > p + p,
+  .copy > p + .lead,
+  .copy > .lead + p { margin-top: 12px; }
+  .copy p br { display: none; }
+  .shot__caption { font-size: 15px; }
+  .testimonials { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; }
+  .testimonial blockquote { font-size: 19px; line-height: 28px; }
+}

@@ -308,10 +308,10 @@ img { max-width: 100%; display: block; }
     position: fixed;
     inset: 0;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 8px;
-    padding: 24px;
+    padding: 96px 24px 24px;
     background: var(--bg);
     z-index: 20;
     transform: translateX(100%);
@@ -323,7 +323,7 @@ img { max-width: 100%; display: block; }
     visibility: visible;
     transition: transform 0.4s var(--ease);
   }
-  .topnav__links a { font-size: 28px; font-weight: 600; color: #000; padding: 8px 0; }
+  .topnav__links a { font-size: 28px; font-weight: 500; color: #000; padding: 8px 0; }
   body.nav-locked { overflow: hidden; }
 
   .page { padding: 40px 24px 56px; --page-gap: 72px; }

@@ -21,8 +21,8 @@
     sections.forEach(function (sec) {
       Array.prototype.forEach.call(sec.children, function (child, i) {
         child.classList.add("reveal");
-        // small, capped stagger for elements that enter together
-        child.style.transitionDelay = Math.min(i, 3) * 0.07 + "s";
+        // capped stagger for elements that enter together
+        child.style.transitionDelay = Math.min(i, 3) * 0.12 + "s";
         items.push(child);
       });
     });
@@ -32,14 +32,14 @@
       return;
     }
 
-    // Reveal an element once its top edge scrolls into the lower ~92% of
+    // Reveal an element once its top edge scrolls into the lower ~88% of
     // the viewport. Runs on load (above-the-fold reveals immediately) and
     // on scroll. No IntersectionObserver dependency — reliable everywhere.
     function check() {
       var vh = window.innerHeight || document.documentElement.clientHeight;
       for (var j = items.length - 1; j >= 0; j--) {
         var r = items[j].getBoundingClientRect();
-        if (r.top < vh * 0.92) {
+        if (r.top < vh * 0.88) {
           items[j].classList.add("is-visible");
           items.splice(j, 1);
         }
